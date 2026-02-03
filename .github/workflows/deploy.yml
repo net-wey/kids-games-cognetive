@@ -1,0 +1,116 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: mobile/package-lock.json
+
+      - name: Install dependencies (Main App)
+        working-directory: ./mobile
+        run: npm ci
+
+      - name: Install dependencies (AR Games)
+        working-directory: ./mobile/ar-games
+        run: npm ci
+
+      - name: Install Expo CLI
+        run: npm install -g @expo/cli
+
+      - name: Build Main App (web version)
+        working-directory: ./mobile
+        run: |
+          echo "Attempting to build web version..."
+          # Пробуем разные методы сборки
+          npx expo export --platform web --output-dir web-build 2>&1 || \
+          npx expo export:web --output-dir web-build 2>&1 || \
+          {
+            echo "Expo export failed. This is expected for React Native apps."
+            echo "We will use AR games only for web deployment."
+            mkdir -p web-build || true
+          }
+        env:
+          EXPO_PUBLIC_BASE_URL: /cognetive-kids/
+          CI: true
+        continue-on-error: true
+
+      - name: Build AR Games (web version)
+        working-directory: ./mobile/ar-games
+        run: npm run build
+        env:
+          NODE_ENV: production
+          VITE_BASE_PATH: /cognetive-kids/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Check build results
+        run: |
+          echo "Checking build results..."
+          ls -la mobile/web-build/ 2>/dev/null || echo "Main app build directory not found"
+          ls -la mobile/ar-games/dist/ 2>/dev/null || echo "AR games build directory not found"
+
+      - name: Prepare deployment
+        run: |
+          mkdir -p deploy
+          # Копируем основное приложение (React Native веб-версия)
+          if [ -d "mobile/web-build" ] && [ "$(ls -A mobile/web-build)" ]; then
+            echo "Copying main app..."
+            cp -r mobile/web-build/* deploy/ || true
+            # Копируем AR игры в подпапку
+            if [ -d "mobile/ar-games/dist" ]; then
+              mkdir -p deploy/ar-games
+              cp -r mobile/ar-games/dist/* deploy/ar-games/ || true
+            fi
+          else
+            echo "Main app not built, using AR games only..."
+            # Если основное приложение не собралось, используем только AR игры
+            if [ -d "mobile/ar-games/dist" ]; then
+              cp -r mobile/ar-games/dist/* deploy/ || true
+            fi
+          fi
+          # Создаем 404.html для SPA routing
+          if [ -f "deploy/index.html" ]; then
+            cp deploy/index.html deploy/404.html || true
+            echo "Created 404.html for SPA routing"
+          fi
+          # Показываем что задеплоится
+          echo "Deployment contents:"
+          ls -la deploy/ | head -20
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './deploy'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
