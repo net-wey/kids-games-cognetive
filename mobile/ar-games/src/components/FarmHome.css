@@ -1,0 +1,208 @@
+.farm-home {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+}
+
+/* Облака */
+.clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cloud {
+  position: absolute;
+  font-size: 3rem;
+  animation: float-cloud 20s linear infinite;
+  opacity: 0.8;
+}
+
+.cloud-1 {
+  top: 20px;
+  animation-duration: 25s;
+  animation-delay: 0s;
+}
+
+.cloud-2 {
+  top: 60px;
+  animation-duration: 30s;
+  animation-delay: -10s;
+}
+
+.cloud-3 {
+  top: 100px;
+  animation-duration: 35s;
+  animation-delay: -20s;
+}
+
+@keyframes float-cloud {
+  from {
+    transform: translateX(-100px);
+  }
+  to {
+    transform: translateX(calc(100vw + 100px));
+  }
+}
+
+/* Заголовок */
+.farm-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.farm-title {
+  font-size: 3rem;
+  color: white;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+  margin-bottom: 0.5rem;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+.title-icon {
+  display: inline-block;
+  margin: 0 0.5rem;
+  animation: wiggle 1s ease-in-out infinite;
+}
+
+.farm-subtitle {
+  font-size: 1.2rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+}
+
+/* Сетка игр */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  position: relative;
+  z-index: 2;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .games-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Карточка игры */
+.game-card {
+  background: linear-gradient(135deg, var(--card-color), color-mix(in srgb, var(--card-color) 80%, white));
+  border: 4px solid white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+}
+
+.game-card:hover::before {
+  left: 100%;
+}
+
+.game-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.game-card:active {
+  transform: translateY(-5px) scale(1.02);
+}
+
+.game-icon {
+  font-size: 4rem;
+  animation: pulse 2s ease-in-out infinite;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.game-name {
+  font-size: 1.5rem;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  font-weight: bold;
+}
+
+.game-description {
+  font-size: 0.95rem;
+  color: white;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  line-height: 1.4;
+}
+
+.game-stars {
+  display: flex;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+}
+
+.star {
+  font-size: 1.5rem;
+  animation: sparkle 1s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 0.2s);
+}
+
+/* Декорации внизу */
+.farm-decorations {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  font-size: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.decoration {
+  animation: bounce 2s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 0.3s);
+}
+
+.decoration:nth-child(1) { animation-delay: 0s; }
+.decoration:nth-child(2) { animation-delay: 0.3s; }
+.decoration:nth-child(3) { animation-delay: 0.6s; }
+.decoration:nth-child(4) { animation-delay: 0.9s; }
+.decoration:nth-child(5) { animation-delay: 1.2s; }
+
