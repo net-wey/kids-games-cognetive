@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/cognetive-kids/game-icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>AR Игры - Обучение и развитие</title>
+    <script>
+      // Редирект для GitHub Pages SPA routing
+      var path = window.location.pathname;
+      if (path.startsWith('/cognetive-kids/')) {
+        // Если путь начинается с /cognetive-kids/, загружаем index.html
+        window.location.replace('/cognetive-kids/index.html' + window.location.search + window.location.hash);
+      } else {
+        // Иначе редиректим на главную
+        window.location.replace('/cognetive-kids/');
+      }
+    </script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+        overflow: hidden;
+        touch-action: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div>Загрузка...</div>
+    <script type="module" src="/cognetive-kids/src/main.jsx"></script>
+  </body>
+</html>
+
