@@ -1,0 +1,412 @@
+.show-number-game {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Canvas для отображения камеры с руками */
+.hands-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* Загрузка */
+.loading-detection {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(102, 126, 234, 0.95);
+  padding: 2rem 3rem;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 20;
+  text-align: center;
+}
+
+.loading-detection p {
+  font-size: 1.3rem;
+  color: white;
+  font-weight: bold;
+  margin: 0 0 1rem 0;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Ошибка */
+.error-detection {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(244, 67, 54, 0.95);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  z-index: 100;
+  color: white;
+  max-width: 85%;
+}
+
+
+/* Подсказка */
+.game-hint {
+  position: absolute;
+  top: 170px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.8rem 1.2rem;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  z-index: 15;
+  max-width: 85%;
+  animation: slideDown 0.5s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.game-hint p {
+  font-size: 0.95rem;
+  color: #333;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+  flex: 1;
+}
+
+.hint-close {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.hint-close:hover {
+  background: #5568d3;
+  transform: scale(1.05);
+}
+
+.hint-close:active {
+  transform: scale(0.95);
+}
+
+/* Целевое число */
+.number-display {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;
+  animation: slideDown 0.5s ease-out;
+}
+
+.number-card {
+  background: rgba(102, 126, 234, 0.95);
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  border: 3px solid white;
+}
+
+.big-number {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  display: block;
+  line-height: 1;
+}
+
+/* Счётчик пальцев */
+.finger-counter {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  text-align: center;
+  min-width: 180px;
+}
+
+.counter-text {
+  font-size: 1rem;
+  color: #666;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+}
+
+.counter-number {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #667eea;
+  margin: 0;
+  transition: all 0.3s;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.counter-number.correct {
+  color: #4CAF50;
+  animation: pulse 0.6s ease-in-out infinite;
+  transform: scale(1.2);
+}
+
+/* Контейнер кнопок */
+.game-controls-number {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+  max-width: 90%;
+}
+
+/* Кнопка пропуска */
+.skip-button {
+  background: rgba(255, 152, 0, 0.95);
+  color: white;
+  border: 2px solid white;
+  padding: 0.7rem 1.2rem;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.skip-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 152, 0, 0.5);
+}
+
+.skip-button:active {
+  transform: scale(0.95);
+}
+
+.debug-button {
+  background: rgba(33, 150, 243, 0.9);
+  color: white;
+  border: 2px solid white;
+  padding: 0.7rem 1rem;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.debug-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(33, 150, 243, 0.5);
+}
+
+.debug-button:active {
+  transform: scale(0.95);
+}
+
+/* Счётчик раундов */
+.round-counter {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #333;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* Индикатор технологии */
+.tech-indicator {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Успех */
+.success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s;
+}
+
+.success-card {
+  background: white;
+  padding: 3rem 4rem;
+  border-radius: 35px;
+  text-align: center;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+  animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.success-icon {
+  font-size: 6rem;
+  display: block;
+  margin-bottom: 1rem;
+  animation: rotate 0.6s ease-out;
+}
+
+.success-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #4CAF50;
+  margin: 0 0 0.5rem 0;
+}
+
+.success-score {
+  font-size: 1.5rem;
+  color: #667eea;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Анимации */
+@keyframes slideDown {
+  from {
+    transform: translateX(-50%) translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg) scale(0); }
+  to { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    transform: scale(1.2); 
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.4); 
+    opacity: 0.8;
+  }
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+  .big-number {
+    font-size: 4rem;
+  }
+  
+  .number-card {
+    padding: 0.8rem 1.5rem;
+  }
+  
+  .counter-number {
+    font-size: 3rem;
+  }
+  
+  .finger-counter {
+    min-width: 150px;
+    padding: 0.8rem 1.5rem;
+  }
+  
+  .success-card {
+    padding: 2rem 3rem;
+  }
+  
+  .success-icon {
+    font-size: 4rem;
+  }
+  
+  .success-text {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .big-number {
+    font-size: 3rem;
+  }
+  
+  .instruction {
+    font-size: 0.85rem;
+  }
+  
+  .skip-button {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
