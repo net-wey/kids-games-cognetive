@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ActivityIndicator
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '../../components/AppIcon';
 import { useFocusEffect } from '@react-navigation/native';
 import { AuthContext } from '../../context/AuthContext';
 import api from '../../config/api';

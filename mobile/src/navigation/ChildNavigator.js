@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '../components/AppIcon';
 
 import ChildDashboardScreen from '../screens/child/ChildDashboardScreen';
 import ChildFriendsScreen from '../screens/child/ChildFriendsScreen';

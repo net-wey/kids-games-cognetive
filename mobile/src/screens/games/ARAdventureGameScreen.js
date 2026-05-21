@@ -9,7 +9,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '../../components/AppIcon';
 import { AuthContext } from '../../context/AuthContext';
 import api from '../../config/api';
 import { getARServerUrl } from '../../utils/network';

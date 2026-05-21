@@ -8,7 +8,7 @@ import {
   Modal,
   Animated
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '../../components/AppIcon';
 import { AuthContext } from '../../context/AuthContext';
 import api from '../../config/api';
 import { getMaxContainerWidth, isWebLargeScreen, getDesktopScale } from '../../utils/responsive';

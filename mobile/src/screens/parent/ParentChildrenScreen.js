@@ -9,7 +9,7 @@ import {
   TextInput,
   Platform
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '../../components/AppIcon';
 import { AuthContext } from '../../context/AuthContext';
 import { useFocusEffect } from '@react-navigation/native';
 import api from '../../config/api';

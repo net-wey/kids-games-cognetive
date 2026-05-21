@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '../components/AppIcon';
 import { wp, hp, fs, spacing, fontSizes, borderRadius } from '../utils/responsive';
 
 const { width } = Dimensions.get('window');

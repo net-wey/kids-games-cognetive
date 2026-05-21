@@ -12,7 +12,7 @@ import {
   Dimensions,
   Platform
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '../../components/AppIcon';
 import api from '../../config/api';
 
 const { width } = Dimensions.get('window');
