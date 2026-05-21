@@ -112,7 +112,7 @@ const LoginScreen = () => {
           </View>
 
           <Text style={styles.footer}>
-            Для получения учетной записи обратитесь к администратору
+            Демо-вход для GitHub Pages: admin / admin
           </Text>
           </View>
         </View>
@@ -233,4 +233,3 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
-

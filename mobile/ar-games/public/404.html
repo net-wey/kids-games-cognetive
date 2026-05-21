@@ -2,7 +2,7 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/cognetive-kids/game-icon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/kids-games-cognetive/game-icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -10,12 +10,12 @@
     <script>
       // Редирект для GitHub Pages SPA routing
       var path = window.location.pathname;
-      if (path.startsWith('/cognetive-kids/')) {
-        // Если путь начинается с /cognetive-kids/, загружаем index.html
-        window.location.replace('/cognetive-kids/index.html' + window.location.search + window.location.hash);
+      if (path.startsWith('/kids-games-cognetive/')) {
+        // Если путь начинается с /kids-games-cognetive/, загружаем index.html
+        window.location.replace('/kids-games-cognetive/index.html' + window.location.search + window.location.hash);
       } else {
         // Иначе редиректим на главную
-        window.location.replace('/cognetive-kids/');
+        window.location.replace('/kids-games-cognetive/');
       }
     </script>
     <style>
@@ -39,7 +39,6 @@
   </head>
   <body>
     <div>Загрузка...</div>
-    <script type="module" src="/cognetive-kids/src/main.jsx"></script>
+    <script type="module" src="/kids-games-cognetive/src/main.jsx"></script>
   </body>
 </html>
-

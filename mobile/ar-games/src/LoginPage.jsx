@@ -23,14 +23,18 @@ const LoginPage = () => {
     // Здесь можно добавить реальную авторизацию через API
     // Пока что просто переходим к играм
     try {
-      // Имитация авторизации
+      // Демо-авторизация для GitHub Pages
       await new Promise(resolve => setTimeout(resolve, 500))
+
+      if (username !== 'admin' || password !== 'admin') {
+        setError('Для демо-входа используйте admin / admin')
+        return
+      }
       
       // Сохраняем в localStorage
-      localStorage.setItem('user', JSON.stringify({ username, role: 'child' }))
+      localStorage.setItem('user', JSON.stringify({ username, role: 'admin' }))
       
-      // Переходим к играм (используем полный путь с base)
-      window.location.href = '/cognetive-kids/games'
+      navigate('/games')
     } catch (err) {
       setError('Ошибка входа. Попробуйте снова.')
     } finally {
@@ -95,7 +99,7 @@ const LoginPage = () => {
         </form>
 
         <p className="login-footer">
-          Для получения учетной записи обратитесь к администратору
+          Демо-вход для GitHub Pages: admin / admin
         </p>
       </div>
     </div>
@@ -103,4 +107,3 @@ const LoginPage = () => {
 }
 
 export default LoginPage
-

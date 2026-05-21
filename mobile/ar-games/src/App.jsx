@@ -62,7 +62,7 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('user')
-    window.location.href = '/cognetive-kids/'
+    window.location.href = import.meta.env.BASE_URL
   }
 
   return (
@@ -84,4 +84,3 @@ function App() {
 }
 
 export default App
-

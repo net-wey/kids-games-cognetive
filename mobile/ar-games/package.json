@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "AR Learning Games for Cognitive Development of Preschool Children - Cognitive Kids",
   "main": "index.js",
-  "homepage": "https://atmega-p471.github.io/cognetive-kids/",
+  "homepage": "https://net-wey.github.io/kids-games-cognetive/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:gh-pages": "VITE_BASE_PATH=/cognetive-kids/ npm run build",
+    "build:gh-pages": "VITE_BASE_PATH=/kids-games-cognetive/ npm run build",
     "preview": "vite preview",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
   },

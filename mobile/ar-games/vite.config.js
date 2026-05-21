@@ -5,8 +5,8 @@ import mkcert from 'vite-plugin-mkcert'
 // https://vitejs.dev/config/
 export default defineConfig({
   // Base path для GitHub Pages
-  // Для локальной разработки используем '/', для GitHub Pages '/cognetive-kids/'
-  base: process.env.VITE_BASE_PATH || (process.env.NODE_ENV === 'production' ? '/cognetive-kids/' : '/'),
+  // Для локальной разработки используем '/', для GitHub Pages '/kids-games-cognetive/'
+  base: process.env.VITE_BASE_PATH || (process.env.NODE_ENV === 'production' ? '/kids-games-cognetive/' : '/'),
   plugins: [
     react(),
     // mkcert только для локальной разработки
@@ -38,4 +38,3 @@ export default defineConfig({
     },
   }
 })
-

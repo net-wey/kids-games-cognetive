@@ -30,7 +30,7 @@ git commit -m "Initial commit: Cognitive Kids project"
 
 1. Перейдите на https://github.com/atmega-p471
 2. Нажмите кнопку "New repository"
-3. Назовите репозиторий: `cognetive-kids`
+3. Назовите репозиторий: `kids-games-cognetive`
 4. Выберите "Public" (для бесплатного GitHub Pages)
 5. **НЕ** добавляйте README, .gitignore или лицензию (они уже есть)
 6. Нажмите "Create repository"
@@ -39,7 +39,7 @@ git commit -m "Initial commit: Cognitive Kids project"
 
 ```bash
 # Добавьте remote репозиторий (замените YOUR_USERNAME на atmega-p471)
-git remote add origin https://github.com/atmega-p471/cognetive-kids.git
+git remote add origin https://github.com/net-wey/kids-games-cognetive.git
 
 # Переименуйте ветку в main (если нужно)
 git branch -M main
@@ -62,7 +62,7 @@ git push -u origin main
 GitHub Actions workflow уже настроен в `.github/workflows/deploy.yml`. Он автоматически:
 - Собирает проект при каждом push в main
 - Деплоит на GitHub Pages
-- Использует правильный base path `/cognetive-kids/`
+- Использует правильный base path `/kids-games-cognetive/`
 
 ## 🚀 Шаг 3: Деплой
 
@@ -90,7 +90,7 @@ git push origin main
 После успешного деплоя:
 
 1. Перейдите в `Settings` → `Pages` в вашем репозитории
-2. Найдите URL вашего сайта (обычно: `https://atmega-p471.github.io/cognetive-kids/`)
+2. Найдите URL вашего сайта (обычно: `https://net-wey.github.io/kids-games-cognetive/`)
 3. Откройте этот URL на мобильном устройстве
 4. Разрешите доступ к камере
 5. Проверьте работу AR игр
@@ -105,7 +105,7 @@ git push origin main
 
 ### Тестирование:
 
-1. Откройте `https://atmega-p471.github.io/cognetive-kids/` на телефоне
+1. Откройте `https://net-wey.github.io/kids-games-cognetive/` на телефоне
 2. Нажмите на любую игру
 3. Разрешите доступ к камере
 4. Проверьте работу AR функций
@@ -145,20 +145,20 @@ npm run dev
 
 **Решение:**
 - Проверьте, что workflow успешно завершился в `Actions`
-- Убедитесь, что base path правильный (`/cognetive-kids/`)
+- Убедитесь, что base path правильный (`/kids-games-cognetive/`)
 - Очистите кэш браузера
 
 ### Проблема: 404 ошибка
 
 **Решение:**
-- Проверьте, что в `vite.config.js` указан правильный `base: '/cognetive-kids/'`
+- Проверьте, что в `vite.config.js` указан правильный `base: '/kids-games-cognetive/'`
 - Убедитесь, что файлы собраны в `mobile/ar-games/dist`
 - Проверьте настройки GitHub Pages
 
 ### Проблема: Изображения не загружаются
 
 **Решение:**
-- Убедитесь, что пути к изображениям начинаются с `/cognetive-kids/`
+- Убедитесь, что пути к изображениям начинаются с `/kids-games-cognetive/`
 - Проверьте, что файлы в `public/` включены в сборку
 
 ## 📝 Обновление проекта
@@ -194,5 +194,4 @@ GitHub Actions автоматически соберет и задеплоит �
 ---
 
 **Готово!** Ваш проект теперь доступен по адресу:
-**https://atmega-p471.github.io/cognetive-kids/**
-
+**https://net-wey.github.io/kids-games-cognetive/**

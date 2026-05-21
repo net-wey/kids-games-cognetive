@@ -130,12 +130,12 @@ function App() {
 **Инструкция по деплою:** [DEPLOYMENT.md](DEPLOYMENT.md)
 
 **Быстрый старт:**
-1. Создайте репозиторий на GitHub с именем `cognetive-kids`
+1. Создайте репозиторий на GitHub с именем `kids-games-cognetive`
 2. Настройте GitHub Pages в Settings → Pages (выберите GitHub Actions)
 3. Запушьте код - деплой произойдет автоматически
-4. Откройте `https://[ваш-username].github.io/cognetive-kids/` на телефоне
+4. Откройте `https://net-wey.github.io/kids-games-cognetive/` на телефоне
 
-**Живая версия:** https://atmega-p471.github.io/cognetive-kids/
+**Живая версия:** https://net-wey.github.io/kids-games-cognetive/
 
 ### Альтернативные платформы
 
@@ -246,4 +246,3 @@ Project Link: [https://github.com/yourusername/ar-learning-games](https://github
 **Сделано с ❤️ для детей**
 
 </div>
-

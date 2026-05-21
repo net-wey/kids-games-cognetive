@@ -90,7 +90,7 @@ npm run dev
 
 **Учетные данные администратора:**
 - Username: `admin`
-- Password: `admin123`
+- Password: `admin`
 
 ### 3. Установка Mobile приложения
 
@@ -138,7 +138,7 @@ npm run check-unity
 
 1. **Вход как Администратор:**
    - Username: `admin`
-   - Password: `admin123`
+   - Password: `admin`
    - Создайте родителя (например: `parent1` / `password123`)
 
 2. **Вход как Родитель:**
@@ -247,15 +247,15 @@ cognitive-kids/
 
 AR игры доступны как веб-приложение с поддержкой HTTPS для работы камеры на мобильных устройствах.
 
-**Живая версия:** https://atmega-p471.github.io/cognetive-kids/
+**Живая версия:** https://net-wey.github.io/kids-games-cognetive/
 
 **Инструкция по деплою:** [mobile/ar-games/DEPLOYMENT.md](mobile/ar-games/DEPLOYMENT.md)
 
 **Быстрый деплой:**
-1. Создайте репозиторий на GitHub с именем `cognetive-kids`
+1. Создайте репозиторий на GitHub с именем `kids-games-cognetive`
 2. Настройте GitHub Pages в Settings → Pages (выберите GitHub Actions)
 3. Запушьте код - деплой произойдет автоматически
-4. Откройте `https://[ваш-username].github.io/cognetive-kids/` на телефоне
+4. Откройте `https://net-wey.github.io/kids-games-cognetive/` на телефоне
 
 ### Backend
 ```bash

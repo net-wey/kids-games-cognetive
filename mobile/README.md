@@ -184,7 +184,7 @@ node scripts/createAdmin.js
 
 **Учетные данные администратора:**
 - Username: `admin`
-- Password: `admin123`
+- Password: `admin`
 
 ## Разработка
 
@@ -208,4 +208,3 @@ eas build --platform ios
 ## Лицензия
 
 MIT
-

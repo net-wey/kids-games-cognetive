@@ -5,6 +5,8 @@ import App from './App'
 import LoginPage from './LoginPage'
 import './index.css'
 
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '')
+
 // Проверка авторизации
 const ProtectedRoute = ({ children }) => {
   const [isAuthorized, setIsAuthorized] = React.useState(false)
@@ -41,12 +43,12 @@ const ProtectedRoute = ({ children }) => {
     }}>Загрузка...</div>
   }
 
-  return isAuthorized ? children : <Navigate to="/cognetive-kids/" replace />
+  return isAuthorized ? children : <Navigate to="/" replace />
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename="/cognetive-kids">
+    <BrowserRouter basename={basePath || '/'}>
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route 
@@ -62,5 +64,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </React.StrictMode>,
 )
-
 

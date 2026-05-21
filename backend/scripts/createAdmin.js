@@ -18,14 +18,14 @@ const createAdmin = async () => {
     // Создать администратора
     const admin = await User.create({
       username: 'admin',
-      password: 'admin123',
+      password: 'admin',
       role: 'admin'
     });
 
     console.log('✅ Администратор создан успешно!');
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log('Username: admin');
-    console.log('Password: admin123');
+    console.log('Password: admin');
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log('⚠️  ОБЯЗАТЕЛЬНО смените пароль после первого входа!');
 

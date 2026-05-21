@@ -1,6 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getAPIUrl } from '../utils/network';
+import { getMockResponse } from './mockApi';
 
 // URL API автоматически определяется в зависимости от платформы
 // Для веб-версии: localhost
@@ -11,7 +12,7 @@ const API_URL = getAPIUrl();
 console.log('🔧 API URL настроен:', API_URL);
 console.log('🌐 Platform:', typeof window !== 'undefined' ? window.location.hostname : 'unknown');
 
-const api = axios.create({
+const client = axios.create({
   baseURL: API_URL,
   timeout: 10000,
   headers: {
@@ -20,7 +21,7 @@ const api = axios.create({
 });
 
 // Interceptor для добавления токена к запросам
-api.interceptors.request.use(
+client.interceptors.request.use(
   async (config) => {
     const token = await AsyncStorage.getItem('token');
     if (token) {
@@ -34,7 +35,7 @@ api.interceptors.request.use(
 );
 
 // Interceptor для обработки ошибок
-api.interceptors.response.use(
+client.interceptors.response.use(
   (response) => response,
   async (error) => {
     console.log('API Error:', error.message);
@@ -55,5 +56,34 @@ api.interceptors.response.use(
   }
 );
 
-export default api;
+const createMockAxiosResponse = (data, config) => ({
+  data,
+  status: 200,
+  statusText: 'OK',
+  headers: {},
+  config,
+});
 
+const requestWithMockFallback = async (method, url, data, config = {}) => {
+  const mockData = await getMockResponse({ method, url, data });
+
+  if (mockData) {
+    return createMockAxiosResponse(mockData, { ...config, method, url, data });
+  }
+
+  if (method === 'get' || method === 'delete') {
+    return client[method](url, config);
+  }
+
+  return client[method](url, data, config);
+};
+
+const api = {
+  get: (url, config) => requestWithMockFallback('get', url, undefined, config),
+  post: (url, data, config) => requestWithMockFallback('post', url, data, config),
+  put: (url, data, config) => requestWithMockFallback('put', url, data, config),
+  delete: (url, config) => requestWithMockFallback('delete', url, undefined, config),
+  interceptors: client.interceptors,
+};
+
+export default api;
