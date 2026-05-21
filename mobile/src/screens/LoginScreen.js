@@ -112,7 +112,7 @@ const LoginScreen = () => {
           </View>
 
           <Text style={styles.footer}>
-            Демо-вход для GitHub Pages: admin / admin
+            Демо: admin/admin для панели, child/child для игр
           </Text>
           </View>
         </View>

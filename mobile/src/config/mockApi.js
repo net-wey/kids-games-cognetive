@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const DEMO_TOKEN = 'demo-admin-token';
+export const DEMO_CHILD_TOKEN = 'demo-child-token';
 
 export const demoAdminUser = {
   id: 1,
@@ -11,6 +12,25 @@ export const demoAdminUser = {
   age: null,
   children: [],
   friends: [],
+};
+
+export const demoChildUser = {
+  id: 4,
+  username: 'child',
+  role: 'child',
+  isActive: true,
+  childName: 'Миша',
+  age: 5,
+  parentId: 2,
+  parent: {
+    id: 2,
+    username: 'parent_demo',
+  },
+  children: [],
+  friends: [
+    { id: 5, username: 'anya_demo', childName: 'Аня' },
+    { id: 6, username: 'sonya_demo', childName: 'Соня' },
+  ],
 };
 
 const demoUsers = [
@@ -33,6 +53,33 @@ const demoUsers = [
     children: [
       { id: 6, username: 'sonya_demo', childName: 'Соня', age: 6, isActive: true },
     ],
+  },
+];
+
+const demoLeaderboard = [
+  {
+    userId: 4,
+    username: 'child',
+    childName: 'Миша',
+    totalScore: 245,
+    gamesPlayed: 12,
+    isCurrentUser: true,
+  },
+  {
+    userId: 5,
+    username: 'anya_demo',
+    childName: 'Аня',
+    totalScore: 220,
+    gamesPlayed: 10,
+    isCurrentUser: false,
+  },
+  {
+    userId: 6,
+    username: 'sonya_demo',
+    childName: 'Соня',
+    totalScore: 190,
+    gamesPlayed: 9,
+    isCurrentUser: false,
   },
 ];
 
@@ -89,18 +136,82 @@ export const getMockResponse = async ({ method = 'get', url = '', data = {} }) =
       };
     }
 
+    if (data?.username === 'child' && data?.password === 'child') {
+      return {
+        success: true,
+        token: DEMO_CHILD_TOKEN,
+        user: demoChildUser,
+      };
+    }
+
     return null;
   }
 
   const token = await getStoredDemoToken();
-  if (token !== DEMO_TOKEN) {
+  if (token !== DEMO_TOKEN && token !== DEMO_CHILD_TOKEN) {
     return null;
   }
 
   if (normalizedMethod === 'get' && path === '/auth/me') {
     return {
       success: true,
-      user: demoAdminUser,
+      user: token === DEMO_CHILD_TOKEN ? demoChildUser : demoAdminUser,
+    };
+  }
+
+  if (token === DEMO_CHILD_TOKEN && normalizedMethod === 'get' && path === '/friends') {
+    return {
+      success: true,
+      count: demoChildUser.friends.length,
+      friends: demoChildUser.friends,
+    };
+  }
+
+  if (token === DEMO_CHILD_TOKEN && normalizedMethod === 'get' && path === '/friends/requests') {
+    return {
+      success: true,
+      count: 0,
+      requests: [],
+    };
+  }
+
+  if (token === DEMO_CHILD_TOKEN && normalizedMethod === 'get' && path === '/games/leaderboard') {
+    return {
+      success: true,
+      leaderboard: demoLeaderboard,
+    };
+  }
+
+  if (token === DEMO_CHILD_TOKEN && normalizedMethod === 'post' && path === '/games/result') {
+    return {
+      success: true,
+      message: 'Результат игры сохранен в демо-режиме',
+      gameResult: {
+        id: Date.now(),
+        childId: demoChildUser.id,
+        ...data,
+        playedAt: new Date().toISOString(),
+      },
+    };
+  }
+
+  if (token === DEMO_CHILD_TOKEN && normalizedMethod === 'post' && path === '/friends/request') {
+    return {
+      success: true,
+      message: 'Запрос в друзья отправлен в демо-режиме',
+      friendRequest: {
+        id: Date.now(),
+        senderId: demoChildUser.id,
+        receiverUsername: data.receiverUsername,
+        status: 'pending',
+      },
+    };
+  }
+
+  if (token === DEMO_CHILD_TOKEN && normalizedMethod === 'put' && /^\/friends\/(accept|reject)\/\d+$/.test(path)) {
+    return {
+      success: true,
+      message: 'Запрос обработан в демо-режиме',
     };
   }
 
