@@ -101,6 +101,13 @@ jobs:
             cp deploy/index.html deploy/404.html || true
             echo "Created 404.html for SPA routing"
           fi
+          # Expo web export writes absolute /_expo asset URLs; repo Pages needs the repository prefix.
+          if [ -f "deploy/index.html" ]; then
+            sed -i 's#src="/_expo/#src="/kids-games-cognetive/_expo/#g; s#href="/_expo/#href="/kids-games-cognetive/_expo/#g' deploy/index.html
+          fi
+          if [ -f "deploy/404.html" ]; then
+            sed -i 's#src="/_expo/#src="/kids-games-cognetive/_expo/#g; s#href="/_expo/#href="/kids-games-cognetive/_expo/#g' deploy/404.html
+          fi
           touch deploy/.nojekyll
           # Показываем что задеплоится
           echo "Deployment contents:"
